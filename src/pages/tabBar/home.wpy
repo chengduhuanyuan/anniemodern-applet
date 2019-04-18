@@ -60,7 +60,7 @@ import BottomLoadMore from "../../components/common/bottomLoadMore"
 import Placeholder from "../../components/common/placeholder"
 import ShopGridList from '@/components/shop_grid_list'
 
-import {USER_SPECICAL_INFO} from '@/utils/constant'
+import {USER_SPECICAL_INFO,ACCESS_TOKEN} from '@/utils/constant'
 
 export default class Home extends wepy.page {
   config = {
@@ -154,6 +154,7 @@ export default class Home extends wepy.page {
   }
   onLoad() {
     console.log("获取session_key和openid:"+JSON.stringify(wepy.getStorageSync(USER_SPECICAL_INFO)));
+    console.log("获取access_token:"+JSON.stringify(wepy.getStorageSync(ACCESS_TOKEN)));
     let that = this;
     this.discoverList = [];
     this.list = [];

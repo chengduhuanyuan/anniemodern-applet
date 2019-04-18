@@ -16,6 +16,8 @@ const getDiscoverList = (params) => wxRequest(params, apiMall + '/goods/list?cat
 //微信的jscode换取sessionKey
 const wxJsCode2Session = (params) => wxRequest(params, apiM + "/api/wechat/jscode2session");
 const user2session = (params) => wxRequest(params, apiMall + "/api/wechat/user2session?jsoncallback=?");
+//获取accessToken
+const getAccessToken = (params) => wxRequest(params, apiM + "/api/wechat/getAccessToken");
 
 //商品接口---begin
 //首页发现商品接口
@@ -193,5 +195,6 @@ export default {
   getMyOrderSize,
   getPayOrderDetail,
   getAdList,
-  getSignDate
+  getSignDate,
+  getAccessToken
 }

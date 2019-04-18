@@ -51,14 +51,16 @@
   </view>
 </template>
 <script>
-import wepy from 'wepy';
-import api from '@/api/api';
+import wepy from 'wepy'
+import api from '@/api/api'
 import tip from '@/utils/tip'
 import Discover from '@/components/discover'
 import Bombscreen from '@/components/bomb_screen'
 import BottomLoadMore from "../../components/common/bottomLoadMore"
 import Placeholder from "../../components/common/placeholder"
 import ShopGridList from '@/components/shop_grid_list'
+
+import {USER_SPECICAL_INFO} from '@/utils/constant'
 
 export default class Home extends wepy.page {
   config = {
@@ -151,6 +153,7 @@ export default class Home extends wepy.page {
     } else {}
   }
   onLoad() {
+    console.log("获取session_key和openid:"+JSON.stringify(wepy.getStorageSync(USER_SPECICAL_INFO)));
     let that = this;
     this.discoverList = [];
     this.list = [];

@@ -14,7 +14,7 @@ const apiM='http://localhost:8080'
 const getDiscoverList = (params) => wxRequest(params, apiMall + '/goods/list?cateidOne=1&cateidTwo=0&price=0&sales=2');
 
 //微信的jscode换取sessionKey
-const wxJsCode2Session = (params) => wxRequest(params, apiMall + "/api/wechat/jscode2session");
+const wxJsCode2Session = (params) => wxRequest(params, apiM + "/api/wechat/jscode2session");
 const user2session = (params) => wxRequest(params, apiMall + "/api/wechat/user2session?jsoncallback=?");
 
 //商品接口---begin
@@ -174,7 +174,6 @@ export default {
   getUserAddress,
   saveAddress,
   receiverInfoById,
-  getUserAddress,
   addSearchKeyword,
   searchKeywordList,
   clearSearchKeyword,

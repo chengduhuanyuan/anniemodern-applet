@@ -45,10 +45,10 @@ export default class Authorize extends wepy.page {
               nickName: data.userInfo.nickName
             }
           })
-          if (rlt.data.result) {
+          if (Object.keys(rlt.data).length !==0 ) {
             let data = rlt.data;
-            if (data.data.openid) {
-              wepy.setStorageSync(USER_SPECICAL_INFO, data.data);
+            if (data.openid) {
+              wepy.setStorageSync(USER_SPECICAL_INFO, data);
             }
           }
         }
@@ -71,10 +71,10 @@ export default class Authorize extends wepy.page {
             nickName: e.detail.userInfo.nickName
           }
         })
-        if (rlt.data.result) {
+        if (Object.keys(rlt.data).length !==0 ) {
           let data = rlt.data;
-          if (data.data.openid) {
-            wepy.setStorageSync(USER_SPECICAL_INFO, data.data);
+          if (data.openid) {
+            wepy.setStorageSync(USER_SPECICAL_INFO, data);
             wepy.switchTab({
               url: '/pages/tabBar/home'
             })

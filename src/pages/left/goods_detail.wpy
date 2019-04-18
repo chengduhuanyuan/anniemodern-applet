@@ -12,7 +12,7 @@
     <view class="details-msg">
       <view class="details-title">{{detail.name}}</view>
       <view class="details_pinfo">
-        <text class="price">￥{{detail.promote_price}}</text>
+        <text class="price">￥{{detail.promotePrice}}</text>
         <view class="order_time {{purchasetype==2||special==1?'hidden':''}}">
           <!--<timer :startTime.sync="startTime" :endTime.sync="endTime"></timer>-->
         </view>
@@ -25,7 +25,7 @@
     </view>
     <view class="order_num">
       <view class="doc">市场价:
-        <text class="num">{{detail.original_price}}元</text>
+        <text class="num">{{detail.originalPrice}}元</text>
       </view>
       <!--<view class="doc" wx:if="{{special == 1}}">库存:
         <text class="num">{{detail.stockNum}}件</text>
@@ -132,7 +132,7 @@
           </view>
           <view class="num_box">
             <view class="title">数量</view>
-            <view class="stock">库存:{{detail.stockNum}}件</view>
+            <view class="stock">库存:{{detail.stock}}件</view>
             <view class="buy-num">
               <view class="jian-btn {{item.number==1? 'disabled' : ''}}" catchtap="jianBtnTap" data-index="{{index}}">-</view>
               <input type="number" bindinput="bindOrderNumInput" value="{{orderNum}}" />
@@ -290,9 +290,13 @@ export default class goodsDetail extends wepy.page {
     if (json.data.code == 0) {
       let data = json.data.data;
       that.detail = data;
+      console.log("=====================================")
+      console.log(that.detail);
       WxParse.wxParse('detailInfo', 'html', that.detail.detailInfo, this);
-      time.endTime = that.detail.validEndTime;
-      time.startTime = that.detail.startTime;
+      // time.endTime = that.detail.validEndTime;
+      // time.startTime = that.detail.startTime;
+      time.endTime = "2017-12-29 11:16:44";
+      time.startTime = "2017-12-29 11:56:41";
       if (json.data.validDate == "0") {
         that.isValidDate = false;
         if (this.purchasetype == 1 && this.special != 1) {

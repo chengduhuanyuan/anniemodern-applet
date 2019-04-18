@@ -13,7 +13,6 @@ node_modules
 test.js
 npm-debug.log
 dist
-node_modules
 
 
 # idea ignore

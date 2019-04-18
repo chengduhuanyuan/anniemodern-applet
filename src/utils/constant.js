@@ -16,6 +16,11 @@ export const USER_INFO = "userInfo";
  */
 export const SYSTEM_INFO = "systemInfo";
 
+/**
+ * access_token
+ * @type {string}
+ */
+export const ACCESS_TOKEN = "access_token";
 
 export const ADDRESS_ID = "addressId";
 

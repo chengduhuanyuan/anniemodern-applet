@@ -79,6 +79,7 @@
       let that = this;
       let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
       let openId = userSpecialInfo.openid;
+      console.log("openid:"+openId);
       const json = await api.cartList({
         query: {
           openId: openId

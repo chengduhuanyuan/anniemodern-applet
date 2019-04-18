@@ -1,0 +1,37 @@
+<style lang="less">
+
+</style>
+<template>
+  <commissionRule></commissionRule>
+</template>
+<script>
+  import wepy from 'wepy';
+  import CommissionRule from '@/components/commission_rule'
+  export default class CommissionsRule extends wepy.page{
+    config = {
+      navigationBarTitleText: '佣金规则',
+    }
+    components = {
+      commissionRule: CommissionRule
+    }
+
+    data = {
+
+    }
+
+
+    onLoad() {
+
+
+    }
+    computed = {
+
+    }
+    methods = {
+
+    }
+    events = {
+
+    }
+  }
+</script>

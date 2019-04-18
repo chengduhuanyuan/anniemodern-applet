@@ -1,0 +1,33 @@
+<template>
+  <form>
+    <view class="wit">
+        <input text="" placeholder="请输入金额">
+    </view>
+    <button class="wit_btn">提现</button>
+  </form>
+</template>
+
+<script>
+
+  import wepy from 'wepy';
+  export default class Points extends wepy.page{
+    config = {
+      navigationBarTitleText: '提现',
+    }
+
+  }
+</script>
+
+<style lang="css">
+.wit{
+  background: #fff;
+  margin-top: 10px;
+}
+  .wit_btn{
+    width: 80%;
+    margin-top: 40%;
+    background-color: #f56b24;
+    color: white;
+    border-radius: 98rpx;
+  }
+</style>

@@ -1,0 +1,65 @@
+<!--佣金规则-->
+<template>
+  <view class="yj_rule">
+    <view class="title tc">安妮摩登佣金规则</view>
+    <!--<view class="jf_jz_title tc">积分价值</view>-->
+    <view class="yj_content">
+      <view class="sec_title">获取佣金规则 </view>
+      <view class="yj_ins">亲，获取佣金要XX做。</view>
+    </view>
+    <view class="yj_content">
+      <view class="sec_title">2.佣金提现规则 </view>
+      <view class="yj_ins">亲，佣金只有满多少才能提现。</view>
+    </view>
+  </view>
+</template>
+<script>
+import wepy from 'wepy'
+
+export default class CommissionRule extends wepy.component {
+  data = {
+
+  }
+
+  events = {
+
+  }
+
+  methods = {
+
+  }
+
+  onLoad() {}
+}
+
+</script>
+<style lang="less">
+.yj_rule {
+  border-top: 1px solid #efefef;
+  background: #fff;
+  padding: 33px 20rpx;
+  margin-top: 10rpx;
+  .title {
+    font-size: 36rpx;
+  }
+  .yj_jz_title {
+    color: #9999ff;
+    font-size: 30rpx;
+    padding-top: 56rpx;
+    display: block;
+  }
+  .yj_content {
+    text-align: left;
+    font-size: 30rpx;
+    .sec_title {
+      color: #666;
+      padding-top: 40rpx;
+    }
+    .yj_ins {
+      color: #999;
+      padding-top: 30rpx;
+    }
+  }
+}
+
+</style>

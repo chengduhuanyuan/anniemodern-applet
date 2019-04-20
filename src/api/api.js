@@ -44,7 +44,8 @@ const cartUpdateNum = (params) => wxRequest(params, apiMall + '/api/mall/goodsCa
 const preOrder = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrder/commitData');
 
 //支付前生成订单
-const saveByCart = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrder/saveByCart');
+// const saveByCart = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrder/saveByCart');
+const saveByCart = (params) => wxRequest(params, apiMall + '/order/saveByCart');
 
 //支付统一下单
 const toPay = (params) => wxRequest(params, apiMall + '/wepay/toPay');

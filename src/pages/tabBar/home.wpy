@@ -60,7 +60,7 @@ import BottomLoadMore from "../../components/common/bottomLoadMore"
 import Placeholder from "../../components/common/placeholder"
 import ShopGridList from '@/components/shop_grid_list'
 
-import {USER_SPECICAL_INFO,ACCESS_TOKEN} from '@/utils/constant'
+import {USER_SPECICAL_INFO,ACCESS_TOKEN,USER_INFO} from '@/utils/constant'
 
 export default class Home extends wepy.page {
   config = {
@@ -106,6 +106,7 @@ export default class Home extends wepy.page {
         size: size || 10
       }
     });
+    console.log("goodlist:"+JSON.stringify(json))
     if (json.data.code == 0) {
       that.list = [...that.list, ...json.data.list];
       that.page_total = json.data.page_total;
@@ -147,6 +148,7 @@ export default class Home extends wepy.page {
     const json = await api.getAdList({
       query: {}
     });
+    console.log("adlist:"+JSON.stringify(json));
     if (json.data.code == 0) {
       this.adList = json.data.list;
       this.$apply();
@@ -155,6 +157,7 @@ export default class Home extends wepy.page {
   onLoad() {
     console.log("获取session_key和openid:"+JSON.stringify(wepy.getStorageSync(USER_SPECICAL_INFO)));
     console.log("获取access_token:"+JSON.stringify(wepy.getStorageSync(ACCESS_TOKEN)));
+    console.log("获取userInfo:"+JSON.stringify(wepy.getStorageSync(USER_INFO)));
     let that = this;
     this.discoverList = [];
     this.list = [];

@@ -83,18 +83,18 @@ export default class ShopGridList extends wepy.component {
   }
   .price {
     color: #de0000;
-    font-size: 35rpx;
+    font-size: 33rpx;
     font-weight: 600;
   }
   .cost_price {
     color: #666666;
-    font-size: 24rpx;
+    font-size: 21rpx;
     text-decoration: line-through;
     font-weight: 600;
   }
   .sale_num {
     color: #666666;
-    font-size: 22rpx;
+    font-size: 17rpx;
   }
   .goods {
     padding: 15rpx 12rpx;

@@ -27,7 +27,7 @@ const getHomeDisvocerList = (params) => wxRequest(params, apiMall + '/api/mall/d
 const getGoodsList = (params) => wxRequest(params, apiMall + '/api/mall/searchGoodsList');
 
 //查询商品详情信息
-const goodsDetail = (params) => wxRequest(params, apiM + '/product/getbyid');
+const goodsDetail = (params) => wxRequest(params, apiM + '/product/getById');
 //商品加入购物车
 const addCart = (params) => wxRequest(params, apiMall + '/api/mall/goodsCart/add');
 //用户的购物车商品列表

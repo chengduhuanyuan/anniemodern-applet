@@ -133,7 +133,8 @@
             </view>
           </view>
           <view class="num_box">
-            <view class="title">数量</view>
+            <view class="title">到店</view>
+            <picker class='time-picker' mode="multiSelector" bindchange="bindStartMultiPickerChange" bindtap='pickerTap' bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">{{startDate}}</picker>
             <view class="stock">库存:{{detail.stock}}件</view>
             <view class="buy-num">
               <view class="jian-btn {{item.number==1? 'disabled' : ''}}" catchtap="jianBtnTap" data-index="{{index}}">-</view>

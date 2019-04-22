@@ -57,7 +57,7 @@ const goodsFavorite = (params) => wxRequest(params, apiMall + '/api/mall/goodsFa
 const goodsUnFavorite = (params) => wxRequest(params, apiMall + '/api/mall/goodsFavorite/delete');
 
 //商品是否已收藏
-const goodsIsFavorite = (params) => wxRequest(params, apiMall + '/api/mall/goodsFavorite/goodsIsFavorite');
+const goodsIsFavorite = (params) => wxRequest(params, apiM + '/product/goodsFavorite');
 
 //商品接口---end
 
@@ -143,7 +143,6 @@ const rootCtegoryList = (params) => wxRequest(params, apiMall + '/api/mall/rootC
 //二级三级分类
 const childGoodsCatetoryList = (params) => wxRequest(params, apiMall + '/api/mall/childGoodsCatetoryList');
 //商品分类--end
-
 //查询广告列表
 const getAdList = (params) => wxRequest(params, apiMall + '/api/adverts/list');
 

@@ -68,7 +68,9 @@ export default class Authorize extends wepy.page {
   async timerAccess(){
     // console.log("1..")
     let acc = await api.getAccessToken();
-    wepy.setStorageSync(ACCESS_TOKEN,acc.data);
+    if (acc.data){
+      wepy.setStorageSync(ACCESS_TOKEN,acc.data);
+    }
   }
   async onGotUserInfo(e) {
     this.getAccessToken();
@@ -88,6 +90,15 @@ export default class Authorize extends wepy.page {
           let data = rlt.data;
           if (data.openid) {
             wepy.setStorageSync(USER_SPECICAL_INFO, data);
+            let userRel = await api.user2db({
+              query: {
+                nickName: e.detail.userInfo.nickName,
+                openid: data.openid
+              }
+            });
+            if (userRel.data.status === false){
+              console.log("已经有数据了....")
+            }
             wepy.switchTab({
               url: '/pages/tabBar/home'
             })

@@ -3,9 +3,9 @@
     <import src="../../plugins/wxParse/wxParse.wxml" />
     <!--index.wxml-->
     <swiper indicator-dots="true" autoplay="true" interval="5000" duration="500" indicator-active-color="#ffc452" indicator-color="#efefef" class="swiper">
-      <block wx:for="{{detail.photoList}}" key="item" item="item" wx:key="key">
+      <block wx:for="{{detail.images}}" key="item" item="item" wx:key="key">
         <swiper-item>
-          <image src="{{item.photo}}" data-src="{{item.photo}}" class="slide-image" @tap="previewImage" />
+          <image src="{{item.imgUrl}}" data-src="{{item.imgUrl}}" class="slide-image" @tap="previewImage" />
         </swiper-item>
       </block>
     </swiper>
@@ -108,6 +108,8 @@
           <view class="doc">收藏</view>
         </view>
         <view class="sy-bottom {{canOrder?'btn_cart':'cart_color'}}" @tap="takeCart">加入购物车</view>
+
+        <!--立即购买-->
         <view class="sy-bottom {{canOrder?'btn_order':'order_color'}}" @tap="takeOrder">{{purchaseText}}</view>
       </view>
     </view>
@@ -120,7 +122,7 @@
           </view>
           <view class="product_wrap">
             <view class="product_name">{{detail.name}}</view>
-            <view class="price">￥ {{detail.price}}</view>
+            <view class="price">￥ {{detail.promotePrice}}</view>
           </view>
         </view>
         <scroll-view scroll-y="true" style="height:400rpx">
@@ -296,7 +298,7 @@ export default class goodsDetail extends wepy.page {
       // time.endTime = that.detail.validEndTime;
       // time.startTime = that.detail.startTime;
       time.endTime = "2017-12-29 11:16:44";
-      time.startTime = "2017-12-29 11:56:41";
+      time.startTime = "2017-7-29 11:56:41";
       if (json.data.validDate == "0") {
         that.isValidDate = false;
         if (this.purchasetype == 1 && this.special != 1) {
@@ -496,9 +498,9 @@ export default class goodsDetail extends wepy.page {
     previewImage(e) {
       let current = e.target.dataset.src;
       let imageArry = [];
-      let obj = this.detail.photoList;
+      let obj = this.detail.images;
       Object.keys(obj).forEach((item) => {
-        imageArry.push(obj[item].photo)
+        imageArry.push(obj[item].imgUrl)
       });
       wx.previewImage({
         current: current, // 当前显示图片的http链接

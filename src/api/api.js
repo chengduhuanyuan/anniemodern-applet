@@ -13,6 +13,9 @@ const apiM='http://localhost:8080'
  */
 const getDiscoverList = (params) => wxRequest(params, apiMall + '/goods/list?cateidOne=1&cateidTwo=0&price=0&sales=2');
 
+//将用户数据存入数据库
+const user2db = (params) => wxRequest(params,apiM + "/api/wechat/saveUser");
+
 //微信的jscode换取sessionKey
 const wxJsCode2Session = (params) => wxRequest(params, apiM + "/api/wechat/jscode2session");
 const user2session = (params) => wxRequest(params, apiMall + "/api/wechat/user2session?jsoncallback=?");
@@ -29,7 +32,8 @@ const getGoodsList = (params) => wxRequest(params, apiMall + '/api/mall/searchGo
 //查询商品详情信息
 const goodsDetail = (params) => wxRequest(params, apiM + '/product/getById');
 //商品加入购物车
-const addCart = (params) => wxRequest(params, apiMall + '/api/mall/goodsCart/add');
+// const addCart = (params) => wxRequest(params, apiMall + '/api/mall/goodsCart/add');
+const addCart = (params) => wxRequest(params, apiM + '/orderitem/purchaseNow');
 //用户的购物车商品列表
 const cartList = (params) => wxRequest(params, apiMall + '/api/mall/goodsCart/list');
 //购物车的商品选中状态
@@ -196,5 +200,6 @@ export default {
   getPayOrderDetail,
   getAdList,
   getSignDate,
-  getAccessToken
+  getAccessToken,
+  user2db
 }

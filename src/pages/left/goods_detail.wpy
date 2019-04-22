@@ -13,7 +13,7 @@
       <view class="details-title">{{detail.name}}</view>
       <view class="details_pinfo">
         <text class="price">￥{{detail.promotePrice}}</text>
-        <view class="order_time {{purchasetype==2||special==1?'hidden':''}}">
+        <view class="order_time {{purchasetype===2||special===1?'hidden':''}}">
           <!--<timer :startTime.sync="startTime" :endTime.sync="endTime"></timer>-->
         </view>
 <!--         <view class="share-box">
@@ -153,7 +153,8 @@
 import wepy from 'wepy'
 import {
   SYSTEM_INFO,
-  USER_SPECICAL_INFO
+  USER_SPECICAL_INFO,
+  ACCESS_TOKEN
 } from '@/utils/constant';
 import tip from '@/utils/tip'
 import api from '@/api/api';
@@ -299,7 +300,7 @@ export default class goodsDetail extends wepy.page {
       // time.endTime = that.detail.validEndTime;
       // time.startTime = that.detail.startTime;
       time.endTime = "2017-12-29 11:16:44";
-      time.startTime = "2017-7-29 11:56:41";
+      time.startTime = "2019-7-29 11:56:41";
       if (json.data.validDate == "0") {
         that.isValidDate = false;
         if (this.purchasetype == 1 && this.special != 1) {
@@ -333,6 +334,7 @@ export default class goodsDetail extends wepy.page {
   async doTakeCart() {
     let that = this;
     let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
+    let accessToken = wepy.getStorageSync(ACCESS_TOKEN) || {};
     let openId = userSpecialInfo.openid;
     const json = await api.addCart({
       query: {
@@ -343,7 +345,7 @@ export default class goodsDetail extends wepy.page {
         num: this.orderNum
       }
     });
-    if (json.data.code == 0) {
+    if (json.data.code === 0) {
       this.winHeight = "100%";
       this.animation.height(0).step();
       this.setData({
@@ -366,17 +368,18 @@ export default class goodsDetail extends wepy.page {
   async doTakeOrder() {
     let that = this;
     let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
+    let accessToken = wepy.getStorageSync(ACCESS_TOKEN) || {};
     let openId = userSpecialInfo.openid;
     const json = await api.addCart({
       query: {
         openId: openId,
         goodsId: that.goodsId,
-        goodsSkuId: this.detail.goodsSkuValIds,
-        purchaseType: this.purchasetype,
+        accessToken: accessToken,
+        // goodsSkuId: this.detail.goodsSkuValIds,
         num: this.orderNum
       }
     });
-    if (json.data.code == 0) {
+    if (json.data.status === true) {
       this.winHeight = "100%";
       this.animation.height(0).step();
       this.setData({

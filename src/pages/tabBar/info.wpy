@@ -49,23 +49,23 @@
         </view>
         <view class="arrow">&gt;</view>
       </navigator>
-      <navigator class="item" url="/pages/right/collection?type=1">
-        <view class="item_content">
-          <image class="item_img" src="../../images/icon_my_05.png"></image>
-          <view class="text">我的收藏</view>
-        </view>
-        <view class="arrow">&gt;</view>
-      </navigator>
+      <!--<navigator class="item" url="/pages/right/collection?type=1">-->
+        <!--<view class="item_content">-->
+          <!--<image class="item_img" src="../../images/icon_my_05.png"></image>-->
+          <!--<view class="text">我的收藏</view>-->
+        <!--</view>-->
+        <!--<view class="arrow">&gt;</view>-->
+      <!--</navigator>-->
     </view>
     <!--分销中心-->
     <view class="info_block" hidden="{{currentBlooean}}">
-      <navigator class="item" url="/pages/left/order">
-        <view class="item_content">
-          <image class="item_img" src="../../images/icon_my_02.png"></image>
-          <view class="text">分销订单</view>
-        </view>
-        <view class="arrow">&gt;</view>
-      </navigator>
+      <!--<navigator class="item" url="/pages/left/order">-->
+        <!--<view class="item_content">-->
+          <!--<image class="item_img" src="../../images/icon_my_02.png"></image>-->
+          <!--<view class="text">分销订单</view>-->
+        <!--</view>-->
+        <!--<view class="arrow">&gt;</view>-->
+      <!--</navigator>-->
       <navigator class="item" url="/pages/right/commission">
         <view class="item_content">
           <image class="item_img" src="../../images/icon_my_08.png"></image>
@@ -89,13 +89,13 @@
       </navigator>
     </view>
     <view class="info_block">
-      <navigator class="item" url="/pages/right/messages">
-        <view class="item_content">
-          <image class="item_img" src="../../images/icon_my_06.png"></image>
-          <view class="text">我的消息</view>
-        </view>
-        <view class="arrow">&gt;</view>
-      </navigator>
+      <!--<navigator class="item" url="/pages/right/messages">-->
+        <!--<view class="item_content">-->
+          <!--<image class="item_img" src="../../images/icon_my_06.png"></image>-->
+          <!--<view class="text">我的消息</view>-->
+        <!--</view>-->
+        <!--<view class="arrow">&gt;</view>-->
+      <!--</navigator>-->
       <navigator class="item" url="/pages/right/setting">
         <view class="item_content">
           <image class="item_img" src="../../images/icon_my_07.png"></image>

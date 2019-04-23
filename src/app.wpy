@@ -96,8 +96,10 @@ export default class extends wepy.app {
       }
     ]
   }
-
-  globalData = {}
+  globalData = {
+    //分类的全局变量标识
+    Category:0,
+  }
 
   constructor() {
     super()

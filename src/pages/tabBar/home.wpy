@@ -106,7 +106,7 @@ export default class Home extends wepy.page {
         size: size || 10
       }
     });
-    console.log("goodlist:"+JSON.stringify(json))
+    // console.log("goodlist:"+JSON.stringify(json));
     if (json.data.code == 0) {
       that.list = [...that.list, ...json.data.list];
       that.page_total = json.data.page_total;
@@ -148,7 +148,7 @@ export default class Home extends wepy.page {
     const json = await api.getAdList({
       query: {}
     });
-    console.log("adlist:"+JSON.stringify(json));
+    // console.log("adlist:"+JSON.stringify(json));
     if (json.data.code == 0) {
       this.adList = json.data.list;
       this.$apply();

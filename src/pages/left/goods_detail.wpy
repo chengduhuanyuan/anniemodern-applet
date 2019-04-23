@@ -103,10 +103,10 @@
         </view>
         <contact-button class="contact">
         </contact-button>
-        <view class="item {{isFavorite?'selec_active':''}}" @tap="takeFavorite">
-          <i class="iconfont icon-collection"></i>
-          <view class="doc">收藏</view>
-        </view>
+        <!--<view class="item {{isFavorite?'selec_active':''}}" @tap="takeFavorite">-->
+          <!--<i class="iconfont icon-collection"></i>-->
+          <!--<view class="doc">收藏</view>-->
+        <!--</view>-->
         <view class="sy-bottom {{canOrder?'btn_cart':'cart_color'}}" @tap="takeCart">加入购物车</view>
 
         <!--立即购买-->

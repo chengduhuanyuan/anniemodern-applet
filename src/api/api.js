@@ -94,7 +94,8 @@ const registerUser = (params) => wxRequest(params, apiMall + '/api/userCenter/re
 const sendRandCode = (params) => wxRequest(params, apiMall + '/api/sms/send');
 
 //用户是否绑定手机号
-const getUserInfo = (params) => wxRequest(params, apiMall + '/api/userCenter/getUserInfo');
+// const getUserInfo = (params) => wxRequest(params, apiMall + '/api/userCenter/getUserInfo');
+const getUserInfo = (params) => wxRequest(params, apiM + '/user/getUserInfo');
 
 //用户收货地址
 const getUserAddress = (params) => wxRequest(params, apiMall + '/api/receiverInfo/list');

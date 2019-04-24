@@ -99,6 +99,7 @@ export default class extends wepy.app {
   globalData = {
     //分类的全局变量标识
     Category:0,
+    CurrentPage:1,
   }
 
   constructor() {

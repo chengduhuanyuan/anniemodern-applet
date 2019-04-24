@@ -22,6 +22,8 @@ const user2session = (params) => wxRequest(params, apiMall + "/api/wechat/user2s
 //获取accessToken
 const getAccessToken = (params) => wxRequest(params, apiM + "/api/wechat/getAccessToken");
 
+//获取二维码
+const getqrCode=(params) => wxRequest(params, apiM + "https://api.weixin.qq.com/wxa/getwxacode?access_token=ACCESS_TOKEN");
 //商品接口---begin
 //首页发现商品接口
 const hostGoodsList = (params) => wxRequest(params, apiM + '/product/getAll');

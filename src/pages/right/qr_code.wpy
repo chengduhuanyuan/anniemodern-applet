@@ -1,8 +1,13 @@
 <template>
-
+  <view>
+    <view class='img'>
+      <image src='data:image/png;base64,{{src2}}'></image>
+    </view>
+  </view>
 </template>
 <script>
   import wepy from 'wepy';
+  import {USER_SPECICAL_INFO,ACCESS_TOKEN,USER_INFO} from '@/utils/constant'
   export default class QrCode extends wepy.page {
     config = {
       navigationBarTitleText : '二维码生成'
@@ -13,8 +18,30 @@
     data = {
 
     }
-    onLoad() {
-
+    onLoad(options) {
+      console.log("获取access_token:"+JSON.stringify(wepy.getStorageSync(ACCESS_TOKEN)));
+      var that = this;
+      var scene = decodeURIComponent(options.scene)
+      // var accesstoken=JSON.stringify(wepy.getStorageSync(ACCESS_TOKEN)).substring(3,JSON.stringify(wepy.getStorageSync(ACCESS_TOKEN)).);
+      wx.request({
+        url:'https://api.weixin.qq.com/wxa/getwxacode?access_token='+wepy.getStorageSync(ACCESS_TOKEN),
+        data: {
+          scene: '000',
+          path: "pages/left/home_detail"
+        },
+        method: "POST",
+        responseType: 'arraybuffer',  //设置响应类型
+        success(res) {
+          console.log(res)
+          var src2 = wx.arrayBufferToBase64(res.data);  //对数据进行转换操作
+          that.setData({
+            src2
+          })
+        },
+        fail(e) {
+          console.log(e)
+        }
+      })
     }
     computed = {
 
@@ -28,5 +55,12 @@
   }
 </script>
 <style lang="less">
-
+.img{
+  display:flex;                    //flex布局
+  justify-content: center;         //水平轴线居中
+}
+.img image {
+  width:400rpx;
+  height:400rpx;
+}
 </style>

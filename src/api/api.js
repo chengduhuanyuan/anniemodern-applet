@@ -35,15 +35,17 @@ const getGoodsList = (params) => wxRequest(params, apiMall + '/api/mall/searchGo
 const goodsDetail = (params) => wxRequest(params, apiM + '/product/getById');
 //商品加入购物车
 // const addCart = (params) => wxRequest(params, apiMall + '/api/mall/goodsCart/add');
-const addCart = (params) => wxRequest(params, apiM + '/orderitem/purchaseNow');
+const addCart = (params) => wxRequest(params, apiM + '/orderitem/add');
 //用户的购物车商品列表
-const cartList = (params) => wxRequest(params, apiMall + '/api/mall/goodsCart/list');
+// const cartList = (params) => wxRequest(params, apiMall + '/api/mall/goodsCart/list');
+const cartList = (params) => wxRequest(params, apiM + '/orderitem/getCartList');
 //购物车的商品选中状态
 const cartCheck = (params) => wxRequest(params, apiMall + '/api/mall/goodsCart/check');
 //购物车的商品选中状态(全选)
 const cartCheckAll = (params) => wxRequest(params, apiMall + '/api/mall/goodsCart/checkAll');
 //购物车的商品删除
-const cartDel = (params) => wxRequest(params, apiMall + '/api/mall/goodsCart/delete');
+// const cartDel = (params) => wxRequest(params, apiMall + '/api/mall/goodsCart/delete');
+const cartDel = (params) => wxRequest(params, apiM + '/orderitem/deleteCartInfo');
 //购物车的商品数量更新
 const cartUpdateNum = (params) => wxRequest(params, apiMall + '/api/mall/goodsCart/updateNum');
 //直接购买商品

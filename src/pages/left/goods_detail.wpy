@@ -250,7 +250,7 @@ export default class goodsDetail extends wepy.page {
     console.log("special===" + this.special);
   }
   onShow() {
-    this.goodsIsFavorite();
+    // this.goodsIsFavorite();
     //创建动画
     var animation = wx.createAnimation({
       transformOrigin: "50% 50%",
@@ -388,7 +388,7 @@ export default class goodsDetail extends wepy.page {
       setTimeout(() => {
         this.hidden = true;
         this.$apply();
-      }, 100)
+      }, 100);
       wepy.navigateTo({
         url: "/pages/left/comfire_order?goodsId=" + that.goodsId + "&purchasetype=" + that.purchasetype
       })

@@ -96,7 +96,7 @@ export default class Home extends wepy.page {
     //广告列表
     adList: [],
     tps: 0,
-    is_show_alert: true
+    is_show_alert: false
   }
 
   async getGoodList(currentPage, size) {

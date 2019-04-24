@@ -5,22 +5,17 @@
         <swipeDelete :swipeData="item" @delItem.user="handleDelItem">
           <!-- <view class="a-goods-conts {{item.ischecked? 'active':''}}"  > -->
           <view class="goods-info">
-            <icon class="icon_check" type="success" color="{{item.ischecked?'red':'rgb(153,153,153)'}}" @tap.stop="selectTap" data-index="{{index}}" data-id="{{item.id}}" size="20" />
+            <icon class="icon_check" type="success" color="{{item.ischecked?'red':'rgb(153,153,153)'}}" @tap.stop="selectTap" data-index="{{index}}" data-id="{{item.product.id}}" size="20" />
             <view class="img-box">
-              <image src="{{item.thumLogo}}" class="img" />
+              <image src="{{item.product.cover}}" class="img" />
             </view>
             <view class="text-box">
               <view class="goods-title">
-                <navigator url="/pages/goods_detail?id={{item.goodsId}}">
-                  {{item.goodsName}}
+                <navigator url="/pages/goods_detail?id={{item.product.id}}">
+                  {{item.product.name}}
                 </navigator>
               </view>
-              <!--  -->
-              <view class="lable">
-                <view class="goods-lable">{{item.goodsSkuValName}}</view>
-                <view class="bo-label" wx:if="{{item.type==2}}">补货</view>
-              </view>
-              <view class="goods-price">¥ {{item.price}}</view>
+              <view class="goods-price">¥ {{item.product.originalPrice}}</view>
               <view class="buy-num">
                 <view class="jian-btn {{item.num==1? 'disabled' : ''}}" catchtap="jianBtnTap" data-index="{{index}}" data-id="{{item.id}}">-</view>
                 <input type="number" value="{{item.num}}" disabled/>
@@ -28,7 +23,6 @@
               </view>
             </view>
           </view>
-          <!--   </view> -->
         </swipeDelete>
       </view>
     </repeat>
@@ -69,10 +63,13 @@
     data = {
       list: [],
       noSelect: false,
-      saveHidden: true,
+      saveHidden: false,
       totalPrice: 0,
-      operating: false,
-      allChecked: true
+      // operating: false,
+      allChecked: false
+    };
+    async judgeSaveHidden(){
+      this.saveHidden = this.totalPrice > 0;
     }
     //获取购物车商品列表
     async getCartList() {
@@ -85,108 +82,37 @@
           openId: openId
         }
       });
-      if (json.data.code == 0) {
+      if (json.data.status === true) {
         let data = json.data;
-        this.list = data.list;
-        this.totalPrice = data.totalPrice;
-        for (var i = 0; i < this.list.length; i++) {
-          if (!this.list[i].ischecked) {
-            this.allChecked = false;
-            break;
-          }
-        }
+        this.list = data.result;
       } else {
         tip.error(json.data.msg)
       }
       that.$apply();
     }
     onLoad() {
-      let that = this;
-      this.operating = false;
-      //that.list = bb.result.products;
-      //console.log(bb.result.products)
-      //that.getCartList();
-    }
-    computed = {}
-    async checkGoods(id, index, ischecked) {
-      let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
-      let openId = userSpecialInfo.openid;
-      const json = await api.cartCheck({
-        query: {
-          openId: openId,
-          id: id
-        }
-      });
-      if (json.data.code == 0) {
-        // 购物车数据
-        this.list[index].ischecked = !ischecked;
-        if (this.list[index].ischecked) {
-          this.totalPrice += parseInt(this.list[index].priceSubtotal);
-        } else {
-          this.totalPrice -= parseInt(this.list[index].priceSubtotal);
-        }
-      } else {
-        tip.error(json.data.msg)
-      }
+      this.totalPrice = 0;
       this.$apply();
     }
-    async reduceGoodNum(id, num, index) {
-      let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
-      let openId = userSpecialInfo.openid;
-      const json = await api.cartUpdateNum({
-        query: {
-          openId: openId,
-          id: id,
-          num: num
-        }
-      });
-      if (json.data.code == 0) {
-        // 购物车数据
-        this.list[index].num = num;
-        this.totalPrice = this.totalPrice - this.list[index].price;
-        this.operating = false;
-      } else {
-        tip.error(json.data.msg)
-      }
-      this.$apply();
-    }
-    async addGoodNum(id, num, index) {
-      let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
-      let openId = userSpecialInfo.openid;
-      const json = await api.cartUpdateNum({
-        query: {
-          openId: openId,
-          id: id,
-          num: num
-        }
-      });
-      if (json.data.code == 0) {
-        // 购物车数据
-        this.list[index].num = num;
-        this.totalPrice = parseInt(this.totalPrice) + parseInt(this.list[index].price);
-        this.operating = false;
-      } else {
-        tip.error(json.data.msg)
-      }
-      this.$apply();
-    }
+    computed = {};
     async deleteGoods(itemData) {
       var id = itemData.id;
+      console.log("删除id:"+id);
       let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
       let openId = userSpecialInfo.openid;
       const json = await api.cartDel({
         query: {
           openId: openId,
-          cartIdList: [id],
+          id: id,
         }
       });
-      if (json.data.code == 0) {
+      if (json.data.status === true) {
         // 购物车数据
         let retList = [];
         for (var i = 0; i < this.list.length; i++) {
-          if (this.list[i].id == id) {
+          if (this.list[i].id === id) {
             if (this.list[i].ischecked) {
-              this.totalPrice -= parseInt(this.list[i].priceSubtotal);
+              this.totalPrice -= parseInt(this.list[i].product.originalPrice);
             }
             continue;
           } else {
@@ -200,104 +126,79 @@
       this.$apply();
     }
 
-    async checkAllGoods() {
-      let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
-      let openId = userSpecialInfo.openid;
-      let check = 0;
-      if (!this.allChecked) {//原来未选中
-        check = 1;
-      }
-      const json = await api.cartCheckAll({
-        query: {
-          openId: openId,
-          check: check
-        }
-      });
-      if (json.data.code == 0) {
-        this.totalPrice = 0;
-        for (var i = 0; i < this.list.length; i++) {
-          this.list[i].ischecked = !this.allChecked;
-          if (!this.allChecked) {
-            this.totalPrice += parseInt(this.list[i].priceSubtotal);
-          }
-        }
-        this.allChecked = !this.allChecked;
-      } else {
-        tip.error(json.data.msg)
-      }
-      this.$apply();
-    }
-
-
     methods = {
       handleDelItem(itemData) {
         this.deleteGoods(itemData);
       },
       selectTap(e) {
-        var id = e.currentTarget.dataset.id;
+        let totalPri;
+        if (typeof (this.totalPrice) === "undefined"){
+           totalPri = 0;
+        }
+        if (typeof (this.totalPrice) === "number") {
+          totalPri = parseInt(this.totalPrice);
+        }
         var index = parseInt(e.currentTarget.dataset.index);
         var ischecked = this.list[index].ischecked;
-        this.checkGoods(id, index, ischecked);
+        this.list[index].ischecked = !ischecked;
+        if(this.list[index].ischecked === true){
+          totalPri += parseInt(this.list[index].num) * parseInt(this.list[index].product.originalPrice);
+        }else {
+          totalPri -= parseInt(this.list[index].num) * parseInt(this.list[index].product.originalPrice);
+        }
+        this.totalPrice = totalPri;
+        this.judgeSaveHidden();
       },
       selectAll() {
-        console.log("sele....");
-        this.checkAllGoods();
+        let totalPri = 0;
+        for (let index in this.list){
+          this.list[index].ischecked = !this.allChecked;
+          totalPri += parseInt(this.list[index].num) * parseInt(this.list[index].product.originalPrice);
+        }
+        this.allChecked = !this.allChecked;
+        if (this.allChecked === true){
+          this.totalPrice = totalPri;
+        } else {
+          this.totalPrice = 0;
+        }
+        this.judgeSaveHidden();
       },
       getCartListMethod() {
         this.getCartList();
       },
       jianBtnTap(e) {
-        if (this.operating) {
-          return;
-        }
-        this.operating = true;
-        var id = e.currentTarget.dataset.id;
         var index = parseInt(e.currentTarget.dataset.index);
-        var num = this.list[index].num;
         // 如果只有1件了，就不允许再减了
-        if (num > 1) {
-          num--;
+        if (parseInt(this.list[index].num) > 1) {
+          this.list[index].num--;
+          if (this.list[index].ischecked === true) {
+            this.totalPrice -= parseInt(this.list[index].product.originalPrice);
+          }
         } else {
           return;
         }
-        this.reduceGoodNum(id, num, index);
+        this.judgeSaveHidden();
       },
       jiaBtnTap(e) {
-        if (this.operating) {
-          return;
-        }
-        this.operating = true;
-        var id = e.currentTarget.dataset.id;
         var index = parseInt(e.currentTarget.dataset.index);
-        var num = this.list[index].num;
-        // 自增
-        num++;
-        this.addGoodNum(id, num, index);
+        this.list[index].num++;
+        if (this.list[index].ischecked === true) {
+          this.totalPrice += parseInt(this.list[index].product.originalPrice);
+        }
+        this.judgeSaveHidden();
       },
       toPayOrder() {
-        let purType = 1,
-          prePurType = 1;
-        let bOneType = true;
-        let index = 0;
-        for (var i = 0; i < this.list.length; i++) {
-          if (this.list[i].ischecked) {
-            purType = this.list[i].type;
-            if (index > 0) {
-              if (purType != prePurType) {
-                bOneType = false;
-                break;
-              }
-            }
-            prePurType = purType;
-            index++;
+        let price = this.totalPrice;
+        this.totalPrice = 0;
+        let payList = [];
+        for (let i in this.list) {
+          if (this.list[i].ischecked === true){
+            payList.push(this.list[i]);
           }
         }
-        if (!bOneType) {
-          tip.alert("先把补货的商品结算!");
-          return;
-        }
+        console.log("paylist:"+JSON.stringify(payList));
         wepy.navigateTo({
-          url: "/pages/left/comfire_order?purchasetype=" + purType
+          url: "/pages/left/comfire_order?payList=" +JSON.stringify(payList)+"&totalPrice="+price
         })
       },
       goIndex() {

@@ -17,21 +17,21 @@
     </swiper>
 
     <view class="nav_list">
-      <navigator open-type="navigate" url="/pages/left/sign_in">
+      <navigator open-type="switchTab" @tap="goGoodsAll" url="/pages/tabBar/goods_all" id="1">
         <image src="../../images/icon_nav_01_new.png" class="nav_icon"></image>
-        <view class="nav_text">签到有礼</view>
+        <view class="nav_text">瘦脸</view>
       </navigator>
-      <navigator open-type="navigate" url="/pages/left/exchange_goods">
+      <navigator open-type="navigate" @tap="goGoodsAll2" url="/pages/tabBar/goods_all">
         <image src="../../images/icon_nav_02_new.png" class="nav_icon"></image>
-        <view class="nav_text">换货专区</view>
+        <view class="nav_text">丰胸</view>
       </navigator>
-      <navigator open-type="navigate" url="/pages/left/wholesale">
+      <navigator open-type="navigate" @tap="goGoodsAll3" url="/pages/tabBar/goods_all">
         <image src="../../images/icon_nav_03_new.png" class="nav_icon"></image>
-        <view class="nav_text">特价专区</view>
+        <view class="nav_text">美白</view>
       </navigator>
-      <navigator open-type="navigate" url="/pages/left/replenishment_goods">
+      <navigator open-type="navigate" @tap="goGoodsAll4" url="/pages/tabBar/goods_all">
         <image src="../../images/icon_nav_04_new.png" class="nav_icon"></image>
-        <view class="nav_text">我要补货</view>
+        <view class="nav_text">双眼皮</view>
       </navigator>
     </view>
 
@@ -61,6 +61,7 @@ import Placeholder from "../../components/common/placeholder"
 import ShopGridList from '@/components/shop_grid_list'
 
 import {USER_SPECICAL_INFO,ACCESS_TOKEN,USER_INFO} from '@/utils/constant'
+import app from '../../app.wpy'
 
 export default class Home extends wepy.page {
   config = {
@@ -97,6 +98,7 @@ export default class Home extends wepy.page {
     tps: 0,
     is_show_alert: true
   }
+
   async getGoodList(currentPage, size) {
     let that = this;
     //const json = await api.getGoodsList({
@@ -167,6 +169,52 @@ export default class Home extends wepy.page {
   }
   computed = {}
   methods = {
+    goGoodsAll(url){
+      wepy.$instance.globalData.Category=1;
+        wx.switchTab({
+          url:"/pages/tabBar/goods_all",
+          success(e){
+            var page = getCurrentPages().pop();
+            if (page == undefined || page == null) return;
+            page.onLoad();
+          }
+        })
+    },
+    goGoodsAll2(url){
+      wepy.$instance.globalData.Category=2;
+      wx.switchTab({
+        url:"/pages/tabBar/goods_all",
+        success(e){
+          var page = getCurrentPages().pop();
+          if (page == undefined || page == null) return;
+          page.onLoad();
+        }
+      })
+    },
+    goGoodsAll3(url){
+      wepy.$instance.globalData.Category=3;
+      wx.switchTab({
+        url:"/pages/tabBar/goods_all",
+        success(e){
+          var page = getCurrentPages().pop();
+          if (page == undefined || page == null) return;
+          page.onLoad();
+        }
+
+      })
+    },
+    goGoodsAll4(url){
+      wepy.$instance.globalData.Category=4;
+      wx.switchTab({
+        url:"/pages/tabBar/goods_all",
+        success(e){
+          var page = getCurrentPages().pop();
+          if (page == undefined || page == null) return;
+          page.onLoad();
+        }
+
+      })
+    },
     goToAdvert(url) {
       console.log("url===" + url);
       if (url.length == 0) {

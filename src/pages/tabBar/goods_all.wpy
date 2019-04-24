@@ -58,6 +58,7 @@ export default class GoodsAll extends wepy.page {
     preventRepeatReuqest: false,
     sort: 1,
     skuval: ""
+
   }
   components = {
     filterBar: FilterBar,
@@ -74,6 +75,7 @@ export default class GoodsAll extends wepy.page {
         page: currentPage || 1,
         size: size || 10,
         sort: this.sort,
+        category:this.category,
         skuval: this.skuval
       }
     });
@@ -104,7 +106,11 @@ export default class GoodsAll extends wepy.page {
     this.showLoading = true;
     //防止重复加载
     this.preventRepeatReuqest = false;
-    this.sort = 1;
+    this.sort =1;
+    this.category=wepy.$instance.globalData.Category;
+    if (wepy.$instance.globalData.Category!=0){
+      wepy.$instance.globalData.Category=0;
+    }
     //this.list = bb.result.products;
     //this.$apply();
     this.getGoodList();

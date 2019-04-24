@@ -334,13 +334,14 @@ export default class goodsDetail extends wepy.page {
   async doTakeCart() {
     let that = this;
     let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
+    let accessToken = wepy.getStorageSync(ACCESS_TOKEN) || {};
     let openId = userSpecialInfo.openid;
     const json = await api.addCart({
       query: {
         openId: openId,
         goodsId: that.goodsId,
-        // goodsSkuId: this.detail.goodsSkuValIds,
-        // purchaseType: this.purchasetype,
+        goodsSkuId: this.detail.goodsSkuValIds,
+        purchaseType: this.purchasetype,
         num: this.orderNum
       }
     });
@@ -367,13 +368,13 @@ export default class goodsDetail extends wepy.page {
   async doTakeOrder() {
     let that = this;
     let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
-    // let accessToken = wepy.getStorageSync(ACCESS_TOKEN) || {};
+    let accessToken = wepy.getStorageSync(ACCESS_TOKEN) || {};
     let openId = userSpecialInfo.openid;
     const json = await api.addCart({
       query: {
         openId: openId,
         goodsId: that.goodsId,
-        // accessToken: accessToken,
+        accessToken: accessToken,
         // goodsSkuId: this.detail.goodsSkuValIds,
         num: this.orderNum
       }

@@ -55,6 +55,7 @@ import {
   SYSTEM_INFO,
   USER_SPECICAL_INFO
 } from '@/utils/constant';
+import tip from '@/utils/tip'
 export default class Messages extends wepy.page {
   config = {
     navigationBarTitleText: '设置',

@@ -105,18 +105,20 @@ export default class AddressEdit extends wepy.component {
     let openId = userSpecialInfo.openid;
     console.log("address:");
     console.log(this.id);
-    const json = await api.saveAddress({
+    const json = await api.updateAddress({
       query: {
         openId: openId,
         id: this.id,
-        address: address,
+        mobile: address.mobile,
+        receiverName: address.receiverName,
+        addressDetail: address.addressDetail,
         isDef: isDefult,
         province:that.provinceCode,
         city:that.cityCode,
         area:that.areaCode
       }
     });
-    if (json.data.code == 0) {
+    if (json.data.status === true) {
       //0 列表 1新增 2编辑 (显示列表)
       this.$emit('currentPage', 0);
       this.$emit('refreshAddList', 'hehe');
@@ -137,16 +139,20 @@ export default class AddressEdit extends wepy.component {
       let mobile = e.detail.value.mobile;
       let addressDetail = e.detail.value.addressDetail;
 
-      if (receiverName == "") {
+      if (receiverName === "") {
         tip.alert("输入收件人姓名");
         return false;
       }
-      if (mobile == "") {
+      if (mobile === "") {
         tip.alert("输入联系电话");
         return false;
 
       }
-      if (addressDetail == "") {
+      if(!(/^1[34578]\d{9}$/.test(mobile))){
+        tip.alert("电话格式错误");
+        return false;
+      }
+      if (addressDetail === "") {
         tip.alert("输入详细地址");
         return false;
       }
@@ -155,12 +161,12 @@ export default class AddressEdit extends wepy.component {
     },
     refresh(val) {
       console.log(val);
-      if (val == undefined) return;
-      console.log("val.....", val);
+      if (val === undefined) return;
+      console.log("edit的val.....", val);
       this.editInfo = val;
       console.log(this.editInfo);
       this.id = this.editInfo.id;
-      if(this.editInfo.isDef==1){
+      if(this.editInfo.default===true){
         this.isDefult=true
       }
       console.log("==========ee=========");
@@ -179,9 +185,9 @@ export default class AddressEdit extends wepy.component {
       this.city = city;
       this.area = area;
 
-      this.provinceCode = province.code;
-      this.cityCode = city.code;
-      this.areaCode = area.code;
+      this.provinceCode = province.name;
+      this.cityCode = city.name;
+      this.areaCode = area.name;
       this.$apply();
     }
   }

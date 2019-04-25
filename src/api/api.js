@@ -53,7 +53,7 @@ const preOrder = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrder/c
 
 //支付前生成订单
 // const saveByCart = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrder/saveByCart');
-const saveByCart = (params) => wxRequest(params, apiMall + '/order/saveByCart');
+const saveByCart = (params) => wxRequest(params, apiM + '/order/creatOrder');
 
 //支付统一下单
 const toPay = (params) => wxRequest(params, apiMall + '/wepay/toPay');
@@ -102,16 +102,23 @@ const sendRandCode = (params) => wxRequest(params, apiMall + '/api/sms/send');
 const getUserInfo = (params) => wxRequest(params, apiM + '/user/getUserInfo');
 
 //用户收货地址
-const getUserAddress = (params) => wxRequest(params, apiMall + '/api/receiverInfo/list');
+// const getUserAddress = (params) => wxRequest(params, apiMall + '/api/receiverInfo/list');
+const getUserAddress = (params) => wxRequest(params, apiM + '/address/getAddress');
 
 //保存用户收货地址
-const saveAddress = (params) => wxRequest(params, apiMall + '/api/receiverInfo/saveOrUpdate');
+// const saveAddress = (params) => wxRequest(params, apiMall + '/api/receiverInfo/saveOrUpdate');
+const saveAddress = (params) => wxRequest(params, apiM + '/address/saveAddress');
+
+//修改用户收货地址
+const updateAddress = (params) => wxRequest(params, apiM + '/address/updateAddress');
 
 //用户收货地址根据id查询
-const receiverInfoById = (params) => wxRequest(params, apiMall + '/api/receiverInfo/receiverInfoById');
+// const receiverInfoById = (params) => wxRequest(params, apiMall + '/api/receiverInfo/receiverInfoById');
+const receiverInfoById = (params) => wxRequest(params, apiM + '/address/receiverInfoById');
 
 //根据Id删除收货地址
-const delUserAddress = (params) => wxRequest(params, apiMall + '/api/receiverInfo/operation');
+// const delUserAddress = (params) => wxRequest(params, apiMall + '/api/receiverInfo/operation');
+const delUserAddress = (params) => wxRequest(params, apiM + '/address/delAddressById');
 
 //查询关键字保存
 const addSearchKeyword = (params) => wxRequest(params, apiMall + '/api/searchkeyword/add');
@@ -206,5 +213,6 @@ export default {
   getAdList,
   getSignDate,
   getAccessToken,
-  user2db
+  user2db,
+  updateAddress
 }

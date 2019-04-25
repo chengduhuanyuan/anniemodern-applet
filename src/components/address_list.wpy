@@ -10,7 +10,7 @@
                 <text class="phone">{{item.mobile}}</text>
               </view>
               <view class="active_address">
-                <text class="defult" wx:if="{{item.isDef==1}}"> [默认]</text>
+                <text class="defult" wx:if="{{item.default}}"> [默认]</text>
                 {{item.provinceName}} {{item.cityName}} {{item.areaName}} {{item.adressDetail}}
               </view>
             </view>
@@ -63,7 +63,7 @@ export default class AddressList extends wepy.component {
       }
     });
 
-    if (json.data.code == 0) {
+    if (json.data.status === true) {
       console.log("删除成功");
       this.$emit('currentPage', 0);
       this.$emit('refreshAddList', 'hehe');
@@ -91,7 +91,7 @@ export default class AddressList extends wepy.component {
     },
 
     refreshList(val){
-      if (val==undefined) return;
+      if (val===undefined) return;
       console.log("val.....",val);
       this.addressList = val;
       this.$apply();
@@ -102,7 +102,7 @@ export default class AddressList extends wepy.component {
     },
 
     tapSelAddress(e) {
-      if (this.type!="order") {
+      if (this.type!=="order") {
         return;
       }
       var id = e.currentTarget.dataset.id;

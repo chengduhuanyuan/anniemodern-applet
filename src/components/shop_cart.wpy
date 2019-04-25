@@ -17,9 +17,9 @@
               </view>
               <view class="goods-price">¥ {{item.product.originalPrice}}</view>
               <view class="buy-num">
-                <view class="jian-btn {{item.num==1? 'disabled' : ''}}" catchtap="jianBtnTap" data-index="{{index}}" data-id="{{item.id}}">-</view>
+                <view class="jian-btn {{item.num==1? 'disabled' : ''}}" catchtap="jianBtnTap" data-index="{{index}}" data-id="{{item.orderitemId}}">-</view>
                 <input type="number" value="{{item.num}}" disabled/>
-                <view class="jia-btn {{item.num==1000? 'disabled' : ''}}" catchtap="jiaBtnTap" data-index="{{index}}" data-id="{{item.id}}">+</view>
+                <view class="jia-btn {{item.num==1000? 'disabled' : ''}}" catchtap="jiaBtnTap" data-index="{{index}}" data-id="{{item.orderitemId}}">+</view>
               </view>
             </view>
           </view>
@@ -96,7 +96,7 @@
     }
     computed = {};
     async deleteGoods(itemData) {
-      var id = itemData.id;
+      var id = itemData.orderitemId;
       console.log("删除id:"+id);
       let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
       let openId = userSpecialInfo.openid;
@@ -110,7 +110,7 @@
         // 购物车数据
         let retList = [];
         for (var i = 0; i < this.list.length; i++) {
-          if (this.list[i].id === id) {
+          if (this.list[i].orderitemId === id) {
             if (this.list[i].ischecked) {
               this.totalPrice -= parseInt(this.list[i].product.originalPrice);
             }
@@ -191,15 +191,31 @@
         let price = this.totalPrice;
         this.totalPrice = 0;
         let payList = [];
+        var map = new Map();
         for (let i in this.list) {
-          if (this.list[i].ischecked === true){
+          if (this.list[i].ischecked === true) {
             payList.push(this.list[i]);
+            map.set(this.list[i].product.id, this.list[i].num);
           }
         }
-        console.log("paylist:"+JSON.stringify(payList));
-        wepy.navigateTo({
-          url: "/pages/left/comfire_order?payList=" +JSON.stringify(payList)+"&totalPrice="+price
-        })
+        let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
+        let openId = userSpecialInfo.openid;
+        console.log("mapObj:"+map.toString());
+        const json = api.saveByCart({
+          query: {
+            openid: openId,
+            totalPrice: price,
+            mapObj: map,
+          }
+        });
+        if (json.data.status === false){
+          tip.error(json.data.msg);
+        } else {
+          console.log("paylist:" + JSON.stringify(payList));
+          wepy.navigateTo({
+            url: "/pages/left/comfire_order?payList=" + JSON.stringify(payList) + "&totalPrice=" + price
+          })
+        }
       },
       goIndex() {
         wepy.switchTab({

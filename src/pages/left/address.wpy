@@ -1,12 +1,12 @@
 <!--地址管理-->
 <template>
-  <view class="{{currentPage==0?'':'hidden'}}">
+  <view class="{{currentPage===0?'':'hidden'}}">
     <addressList :list.sync="addressList" @currentPage.user="getCurrentPage"></addressList>
   </view>
-  <view class="{{currentPage==1?'':'hidden'}}">
+  <view class="{{currentPage===1?'':'hidden'}}">
     <addressAdd @currentPage.user="getCurrentPage"></addressAdd>
   </view>
-  <view class="{{currentPage==2?'':'hidden'}}">
+  <view class="{{currentPage===2?'':'hidden'}}">
     <addressEdit @currentPage.user="getCurrentPage" ></addressEdit>
   </view>
 </template>
@@ -43,10 +43,11 @@ export default class Address extends wepy.page {
       }
     });
 
-    if (json.data.code == 0) {
-      this.addressList=json.data.list;
+    if (json.data.status === true) {
+      this.addressList=json.data.result;
       this.$invoke("addressList","refreshList", this.addressList);
     } else {
+      this.$invoke("addressList","refreshList", []);
       tip.error(json.data.msg)
     }
     that.showLoading = false;
@@ -60,8 +61,8 @@ export default class Address extends wepy.page {
         id: id
       }
     });
-    if (json.data.code == 0) {
-      this.receiverInfo=json.data.receiverInfo;
+    if (json.data.status === true) {
+      this.receiverInfo=json.data.result;
       this.$invoke("addressEdit","refresh", this.receiverInfo);
       console.log("=================================")
     } else {
@@ -79,7 +80,7 @@ export default class Address extends wepy.page {
   onLoad(option) {
     this.currentPage = 0;
     this.getUserAddress();
-    this.type = (option.type==undefined?"":option.type);
+    this.type = (option.type===undefined?"":option.type);
     this.$invoke("addressList","setOrgType", this.type);
   }
 

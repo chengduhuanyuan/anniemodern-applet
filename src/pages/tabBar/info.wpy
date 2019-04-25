@@ -113,6 +113,7 @@ import Tab from '@/components/tab';
 import {
   USER_INFO,USER_SPECICAL_INFO
 } from '@/utils/constant';
+import tip from '@/utils/tip'
 export default class Index extends wepy.page {
   config = {
     navigationBarTitleText: '会员',

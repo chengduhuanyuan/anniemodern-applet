@@ -121,10 +121,10 @@ const searchKeywordList = (params) => wxRequest(params, apiMall + '/api/searchke
 const clearSearchKeyword = (params) => wxRequest(params, apiMall + '/api/searchkeyword/clear');
 
 //查询我的订单
-const getMyOrderList = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrder/getMyOrderList');
+const getMyOrderList = (params) => wxRequest(params, apiM + '/order/getOrderAll');
 
 //查询我的订单数量
-const getMyOrderSize = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrder/getMyOrderSize');
+const getMyOrderSize = (params) => wxRequest(params, apiM + '/order/getOrderSize');
 
 //根据订单号查询详情
 const getOrderInfo = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrder/getOrderDetail');

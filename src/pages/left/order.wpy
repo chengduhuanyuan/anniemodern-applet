@@ -35,7 +35,7 @@ export default class Order extends wepy.page {
   data = {
     winHeight: 0,
     totalCount: 0,
-    tabList: ["全部订单", "待支付", "待收货", "已完成"],
+    tabList: ["全部订单", "待支付","待发货", "待收货", "待评论"],
     orderList: [],
     currentPage: 1,
     is_empty: false,
@@ -120,7 +120,7 @@ export default class Order extends wepy.page {
       that.shippedCount = json.data.shippedCount;
 
       //重写list
-      var dotList = ["全部订单", { name: "待支付", dotNum: that.pendingPayCount }, { name: "待收货", dotNum: that.backrdersCount }, "已完成"];
+      var dotList = ["全部订单", { name: "待支付", dotNum: that.pendingPayCount },{ name: "待发货", dotNum: that.backrdersCount }, { name: "待收货", dotNum: that.backrdersCount }, "待评论"];
       this.$invoke("tab", "changeList", dotList);
       that.$apply();
     }
@@ -153,22 +153,25 @@ export default class Order extends wepy.page {
       console.log(cur);
       if (cur == 0) {
         console.log("所有订单类型");
-        that.orderStatus = "";
+        that.orderStatus = 0;
         that.getMyOrder();
       } else if (cur == 1) {
         console.log("未付款订单类型");
-        that.orderStatus = 0;
+        that.orderStatus = 1;
         that.getMyOrder();
       } else if (cur == 2) {
-        console.log("待收货订单类型");
+        console.log("待发货订单类型");
         that.orderStatus = 2;
         that.receiveFlg=2;
         that.getMyOrder();
       } else if (cur == 3) {
 
-        console.log("已完成订单类型");
-        that.orderStatus = 4;
-        that.receiveFlg=4;
+        console.log("待收货订单类型");
+        that.orderStatus = 3;
+        that.getMyOrder();
+      }else if (cur == 4) {
+        console.log("未评论类型");
+        that.orderStatus =4;
         that.getMyOrder();
       }
       that.$apply();
@@ -206,7 +209,7 @@ export default class Order extends wepy.page {
     console.log("加载更多");
     let that = this;
     that.showLoading = true;
-    console.log(that.page_total + "232===" + that.currentPage);
+    console.log(that.page_total + "11111===" + that.currentPage);
     //判断总页数是否大于翻页数
     if ((that.page_total) > that.currentPage) {
       //防止重复加载
@@ -218,11 +221,12 @@ export default class Order extends wepy.page {
       console.log(this.currentTab);
       if (this.currentTab == 0) {
         console.log("所有订单类型");
+        that.orderStatus = 0;
         that.getMyOrder(that.currentPage);
       } else if (this.currentTab == 1) {
         console.log("未付款订单类型");
-        that.orderStatus = 0;
-        that.getMyOrder(that.currentPage);
+        that.orderStatus = 1;
+        that.getMyOrder(that.orderStatus);
       } else if (this.currentTab == 2) {
         console.log("待发货订单类型");
         that.orderStatus = 2;

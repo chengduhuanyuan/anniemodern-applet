@@ -1,7 +1,7 @@
 <!--地址管理-->
 <template>
   <view class="{{currentPage===0?'':'hidden'}}">
-    <addressList :list.sync="addressList" @currentPage.user="getCurrentPage"></addressList>
+    <addressList :list.sync="addressList" :payList.sync="payList" :totalPrice.sync="totalPrice" @currentPage.user="getCurrentPage"></addressList>
   </view>
   <view class="{{currentPage===1?'':'hidden'}}">
     <addressAdd @currentPage.user="getCurrentPage"></addressAdd>
@@ -30,7 +30,10 @@ export default class Address extends wepy.page {
 
     //显示当前组件 0 列表 1新增 2编辑
     currentPage: 0,
-    type: "" //哪个页面跳转过来的
+    type: "", //哪个页面跳转过来的
+    //url传递过来的payList
+    payList: "",
+    totalPrice: ""
   }
 
   async getUserAddress(phone,code) {
@@ -80,6 +83,8 @@ export default class Address extends wepy.page {
   onLoad(option) {
     this.currentPage = 0;
     this.getUserAddress();
+    this.payList = (option.payList ===undefined?"":option.payList);
+    this.totalPrice = (option.totalPrice ===undefined?"":option.totalPrice);
     this.type = (option.type===undefined?"":option.type);
     this.$invoke("addressList","setOrgType", this.type);
   }

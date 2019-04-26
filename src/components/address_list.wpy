@@ -42,15 +42,23 @@ export default class AddressList extends wepy.component {
         style: 0
       }],
       type: Object
+    },
+    payList: {
+      type: String
+    },
+    totalPrice: {
+      type: String
     }
-  }
+  };
   components = {
     swipeDelete: SwipeDelete
-  }
+  };
 
   data = {
     receiverInfo:{},
-    type: ""
+    type: "",
+    payList: this.props.payList,
+    totalPrice: this.props.totalPrice
   }
 
   async delUserAddress(id) {
@@ -109,10 +117,10 @@ export default class AddressList extends wepy.component {
       console.log("id=="+id);
       wepy.setStorageSync(ADDRESS_ID,id);
       wepy.redirectTo({
-        url: "/pages/left/comfire_order?from=selAdd"
+        url: "/pages/left/comfire_order?from=selAdd&payList=" +this.payList+ "&totalPrice=" + this.totalPrice
       })
     }
-  }
+  };
 
   onLoad() {
 

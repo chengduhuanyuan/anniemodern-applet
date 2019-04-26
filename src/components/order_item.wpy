@@ -36,7 +36,7 @@
   </navigator>
   <view class="order_list_footer">
     <view class="reveiveMoney c333">应付款：
-      <text class="num">{{item.goodsPrice}}</text>
+      <text class="num">{{item.goodsPrices}}</text>
     </view>
 
     <view class="order_state" wx:if="{{item.auditStatus==5}}">
@@ -50,7 +50,7 @@
       <view class="btn_group">
         <view class="btn btn_del" @tap="delOrder" data-id="{{item.id}}" wx:if="{{item.status==0 || item.status==4}}">删除订单</view>
         <view class="btn btn_pay" @tap="payMoney" data-id="{{item.id}}" data-tradeno="{{item.payTradeNo}}" wx:if="{{item.status==1}}">立即付款</view>
-        <view class="btn btn_pay" @tap="completion" data-id="{{item.id}}" wx:if="{{item.status==2}}">确认收货</view>
+        <view class="btn btn_pay" @tap="completion" data-id="{{item.id}}" wx:if="{{item.status==3}}">确认收货</view>
       </view>
     </view>
   </view>
@@ -107,7 +107,7 @@ export default class orderItem extends wepy.component {
 
   methods = {
     async delOrder(e) {
-      this.flag=2;
+      this.flag=4;
       this.orderNo = e.currentTarget.dataset.id;
       await tip.confirm('是否删除订单');
       console.log(this.flag);

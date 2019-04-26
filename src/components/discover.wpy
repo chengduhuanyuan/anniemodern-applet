@@ -4,11 +4,11 @@
             <view class="discover_title_doc">限时秒杀</view>
         </view>
         <view class="discover_list">
-            <navigator class="item" open-type="navigate" wx:for="{{list}}" wx:key="item" url="/pages/left/home_detail?code={{item.code}}" >
+            <navigator class="item" open-type="navigate" wx:for="{{list}}" wx:key="item" url="/pages/left/goods_detail?id={{item.pid}}" >
                 <image class="discover_img" src="{{item.logo}}"></image>
-                <view class="info" wx:for="{{item.attrs}}" wx:key="item">
-                    <view>{{item.attrName.attrName}}：</view><view wx:for="{{item.attrValList}}" wx:key="item">{{item.attrVal}} </view>
-                </view>
+                <!--<view class="info" wx:for="{{item.intro}}" wx:key="item">-->
+                    <view>{{item.intro}} </view>
+                <!--</view>-->
             </navigator>
         </view>
     </view>

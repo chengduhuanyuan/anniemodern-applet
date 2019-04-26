@@ -21,7 +21,6 @@
           <view class="item" data-sku="2" @tap.stop="selSKU">丰胸</view>
           <view class="item" data-sku="3" @tap.stop="selSKU">美白</view>
           <view class="item" data-sku="4" @tap.stop="selSKU">双眼皮</view>
-          <view class="item" data-sku="XXL" @tap.stop="selSKU">XXL</view>
         </view>
       </view>
       <view class="btn_group">

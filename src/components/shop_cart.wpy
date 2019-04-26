@@ -55,7 +55,8 @@
   import {
     USER_SPECICAL_INFO
   } from '@/utils/constant';
-  import swipeDelete from './common/wepy-swipe-delete'
+  import swipeDelete from './common/wepy-swipe-delete';
+  import util from '@/utils/util';
   export default class shopCart extends wepy.component {
     components = {
       swipeDelete
@@ -86,6 +87,7 @@
         let data = json.data;
         this.list = data.result;
       } else {
+        this.list = [];
         tip.error(json.data.msg)
       }
       that.$apply();
@@ -187,33 +189,32 @@
         }
         this.judgeSaveHidden();
       },
-      toPayOrder() {
+      async toPayOrder() {
         let price = this.totalPrice;
         this.totalPrice = 0;
         let payList = [];
-        var map = new Map();
         for (let i in this.list) {
           if (this.list[i].ischecked === true) {
             payList.push(this.list[i]);
-            map.set(this.list[i].product.id, this.list[i].num);
           }
         }
         let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
         let openId = userSpecialInfo.openid;
-        console.log("mapObj:"+map.toString());
-        const json = api.saveByCart({
+        let orderId = util.generateOrderNo();
+        console.log("orderNO:  "+orderId);
+        const json = await api.saveByCart({
           query: {
             openid: openId,
+            // orderId: orderId,
             totalPrice: price,
-            mapObj: map,
+            payList: JSON.stringify(payList),
           }
         });
-        if (json.data.status === false){
+        if (json.data.status === false) {
           tip.error(json.data.msg);
         } else {
-          console.log("paylist:" + JSON.stringify(payList));
           wepy.navigateTo({
-            url: "/pages/left/comfire_order?payList=" + JSON.stringify(payList) + "&totalPrice=" + price
+            url: "/pages/left/comfire_order?payList=" + JSON.stringify(payList) + "&totalPrice=" + price+"&openid="+openId
           })
         }
       },

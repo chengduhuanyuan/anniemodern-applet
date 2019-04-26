@@ -12,6 +12,10 @@ function getCurrentTime() {
   return keep // 20160614134947
 }
 
+function generateOrderNo() {
+  return Number(Math.random().toString().substr(3,16) + Date.now()).toString(36);
+}
+
 function objLength(input) {
   let type = toString(input)
   let length = 0
@@ -130,5 +134,6 @@ module.exports = {
   div: div,
   mul: mul,
   accAdd: accAdd,
-  convertStarArray: convertStarArray
+  convertStarArray: convertStarArray,
+  generateOrderNo: generateOrderNo
 }

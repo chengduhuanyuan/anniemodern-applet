@@ -120,6 +120,9 @@ const receiverInfoById = (params) => wxRequest(params, apiM + '/address/receiver
 // const delUserAddress = (params) => wxRequest(params, apiMall + '/api/receiverInfo/operation');
 const delUserAddress = (params) => wxRequest(params, apiM + '/address/delAddressById');
 
+//根据用户id查询默认地址
+const  getDefaultAddressByOpenid = (params) => wxRequest(params, apiM + '/address/getDefaultAddress');
+
 //查询关键字保存
 const addSearchKeyword = (params) => wxRequest(params, apiMall + '/api/searchkeyword/add');
 //查询关键字列表
@@ -214,5 +217,6 @@ export default {
   getSignDate,
   getAccessToken,
   user2db,
-  updateAddress
+  updateAddress,
+  getDefaultAddressByOpenid
 }

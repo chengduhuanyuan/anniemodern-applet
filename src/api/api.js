@@ -27,9 +27,9 @@ const getqrCode=(params) => wxRequest(params, apiM + "https://api.weixin.qq.com/
 //商品接口---begin
 //首页发现商品接口
 const hostGoodsList = (params) => wxRequest(params, apiM + '/product/getAll');
-const getHomeDisvocerList = (params) => wxRequest(params, apiMall + '/api/mall/discoverList');
+const getHomeDisvocerList = (params) => wxRequest(params, apiM + '/pic/discoverList');
 //查询商品列表
-const getGoodsList = (params) => wxRequest(params, apiMall + '/api/mall/searchGoodsList');
+const getGoodsList = (params) => wxRequest(params, apiM + '/product/searchkeyword');
 
 //查询商品详情信息
 const goodsDetail = (params) => wxRequest(params, apiM + '/product/getById');
@@ -139,8 +139,8 @@ const getOrderInfo = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrd
 //根据订单号查询详情
 const getPayOrderDetail = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrder/getPayOrderDetail');
 
-//根据订单号查询详情
-const editOrderInfo = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrder/opt');
+//根据订单号删除订单
+const editOrderInfo = (params) => wxRequest(params, apiM + '/order/delOrder');
 
 //根据订单号查询物流
 const orderExpressInfo = (params) => wxRequest(params, apiMall + '/api/orderExpress/orderExpressInfo');
@@ -160,7 +160,7 @@ const rootCtegoryList = (params) => wxRequest(params, apiMall + '/api/mall/rootC
 const childGoodsCatetoryList = (params) => wxRequest(params, apiMall + '/api/mall/childGoodsCatetoryList');
 //商品分类--end
 //查询广告列表
-const getAdList = (params) => wxRequest(params, apiMall + '/api/adverts/list');
+const getAdList = (params) => wxRequest(params, apiM + '/getImglist');
 
 export default {
   hostGoodsList,

@@ -35,7 +35,7 @@ export default class Order extends wepy.page {
   data = {
     winHeight: 0,
     totalCount: 0,
-    tabList: ["全部订单", "待支付","待发货", "待收货", "待评论"],
+    tabList: ["全部订单", "待支付","待发货", "待收货"],
     orderList: [],
     currentPage: 1,
     is_empty: false,
@@ -117,10 +117,12 @@ export default class Order extends wepy.page {
       //待发货
       that.backrdersCount = json.data.backrdersCount;
       //待收货
-      that.shippedCount = json.data.shippedCount;
+      that.shippedCount=json.data.shippedCount ;
+      //待评论
+      // that.commentCount=json.data.commentCount;
 
       //重写list
-      var dotList = ["全部订单", { name: "待支付", dotNum: that.pendingPayCount },{ name: "待发货", dotNum: that.backrdersCount }, { name: "待收货", dotNum: that.backrdersCount }, "待评论"];
+      var dotList = ["全部订单", { name: "待支付", dotNum: that.pendingPayCount },{ name: "待发货", dotNum: that.backrdersCount }, { name: "待收货", dotNum: that.shippedCount }];
       this.$invoke("tab", "changeList", dotList);
       that.$apply();
     }
@@ -169,10 +171,10 @@ export default class Order extends wepy.page {
         console.log("待收货订单类型");
         that.orderStatus = 3;
         that.getMyOrder();
-      }else if (cur == 4) {
-        console.log("未评论类型");
-        that.orderStatus =4;
-        that.getMyOrder();
+      // }else if (cur == 4) {
+      //   console.log("未评论类型");
+      //   that.orderStatus =4;
+      //   that.getMyOrder();
       }
       that.$apply();
     },
@@ -233,8 +235,8 @@ export default class Order extends wepy.page {
         that.receiveFlg=2;
         that.getMyOrder(that.currentPage);
       } else if (this.currentTab == 3) {
-        console.log("已完成订单类型");
-        that.orderStatus = 4;
+        console.log("待收货");
+        that.orderStatus = 3;
         that.getMyOrder(that.currentPage);
       }
       that.preventRepeatReuqest = false;

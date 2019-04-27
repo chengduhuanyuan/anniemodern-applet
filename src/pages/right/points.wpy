@@ -12,12 +12,12 @@
             <view class="cfff">{{userPoint}}</view>
           </view>
         </view>
-        <view class="btn_jf_rule" @tap="jfRule">积分说明</view>
+        <view class="btn_jf_rule" @tap="more">签到</view>
       </view>
     </view>
     <view class="jf_detai">
       <view class="left">积分明细</view>
-      <view class="right" @tap="more">查看更多</view>
+      <view class="right" @tap="jfRule">积分说明</view>
     </view>
     <scroll-view scroll-y="true" class="swiper-item-box" style="height:{{winHeight-165}}px">
       <!-- 积分记录 -->

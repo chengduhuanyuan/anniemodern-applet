@@ -14,7 +14,7 @@
                       </view>
                     </view>-->
       <view class="block">
-        <view class="title">尺码</view>
+        <view class="title">分类</view>
         <view class="item_box">
           <view class="item" data-sku="0" @tap.stop="selSKU">全部</view>
           <view class="item" data-sku="1" @tap.stop="selSKU">瘦脸</view>

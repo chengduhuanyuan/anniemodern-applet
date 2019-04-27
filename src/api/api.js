@@ -3,9 +3,8 @@ import {
 } from '@/utils/wxRequest';
 
 let env = "-test" //-dev 或者 -test
-const apiMall = 'https://sujiefs.com/'
-// const apiMall = 'http://localhost:8080/'
-const apiM='http://localhost:8080'
+const apiMall = 'https://sujiefs.com/';
+const apiM='http://192.168.0.100:8080';
 /**
  * 获取发现好商品接口
  * @param  {[type]} params [description]
@@ -143,7 +142,8 @@ const getMyOrderSize = (params) => wxRequest(params, apiM + '/order/getOrderSize
 const getOrderInfo = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrder/getOrderDetail');
 
 //根据订单号查询详情
-const getPayOrderDetail = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrder/getPayOrderDetail');
+// const getPayOrderDetail = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrder/getPayOrderDetail');
+const getPayOrderDetail = (params) => wxRequest(params, apiM + '/order/getOneOrder');
 
 //根据订单号删除订单
 const editOrderInfo = (params) => wxRequest(params, apiM + '/order/delOrder');

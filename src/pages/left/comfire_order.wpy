@@ -144,6 +144,7 @@ export default class ComfireOrder extends wepy.page {
     if (from_==="selAdd") {
       this.addressInfo(wepy.getStorageSync(ADDRESS_ID))
     }
+    this.$apply();
   }
   computed = {
 
@@ -154,18 +155,19 @@ export default class ComfireOrder extends wepy.page {
     tip.loading("提交订单中");
     let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
     let openId = userSpecialInfo.openid;
+    console.log("获取到的list:"+JSON.stringify(this.list))
     const json = await api.saveByCart({
       query: {
-        openId: openId,
+        openid: openId,
         receiverInfoId: this.address.id,
         businessMessage: this.sellerMessage,
         formId: formId,
-        reduceScore: this.jf_num
+        totalPrice: this.actualPrice,
+        payList: JSON.stringify(this.list)
       }
     });
-
-    if (json.data.code == 0) {
-      //补货直接提交到后台去审核
+    if (json.data.status === true) {
+      /*//补货直接提交到后台去审核
       if (this.purchaseType==2) {//补货
         tip.success("已提交补货申请!");
         setTimeout(() => {
@@ -175,12 +177,12 @@ export default class ComfireOrder extends wepy.page {
           })
         }, 2000)
         return;
-      }
+      }*/
       //保存成功了后进行微信支付
       const pay = await api.toPay({
         query:{
           openId: openId,
-          orderNo: json.data.tradeNo
+          orderNo: json.data.result
         }
       });
       if (pay.data.code==0) {
@@ -198,7 +200,7 @@ export default class ComfireOrder extends wepy.page {
               //支付成功 关闭loadding 跳转到支付成功页面
               tip.loaded();
               wepy.navigateTo({
-                url: "/pages/pay_success?orderNo="+json.data.tradeNo
+                url: "/pages/right/pay_success?orderNo="+json.data.tradeNo
               })
             }, 2000)
           },
@@ -208,7 +210,7 @@ export default class ComfireOrder extends wepy.page {
               //支付成功 关闭loadding 跳转到支付成功页面
               tip.loaded();
               wepy.navigateTo({
-                url: "/pages/order"
+                url: "/pages/left/order"
               })
             }, 2000)
           }
@@ -219,7 +221,7 @@ export default class ComfireOrder extends wepy.page {
           //支付成功 关闭loadding 跳转到支付成功页面
           tip.loaded();
           wepy.navigateTo({
-            url: "/pages/order"
+            url: "/pages/left/order"
           })
         }, 2000)
       }
@@ -237,6 +239,7 @@ export default class ComfireOrder extends wepy.page {
     },
     async goPay(e) {
       var fId = e.detail.formId;
+      console.log("fId："+fId);
       if (!this.is_exit_address) {
         await tip.confirm('你未设置收货地址，请设置地址');
         wepy.navigateTo({

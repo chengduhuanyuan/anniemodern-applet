@@ -34,12 +34,12 @@
       <view class="list_block">
         <view class="item_bock">
           <view class="title">昵称</view>
-          <view class="item_content">{{userInfo.nickName}}</view>
+          <view class="item_content">{{userInfo.name}}</view>
         </view>
-        <view class="item_bock">
+       <!-- <view class="item_bock">
           <view class="title">我的手机</view>
           <view class="item_content">{{userInfo.mobile}}</view>
-        </view>
+        </view>-->
         <view class="item_bock">
           <view class="title">收货地址</view>
           <navigator class="item_content" url="/pages/left/address">更改地址 &gt;</navigator>
@@ -67,7 +67,7 @@ export default class Messages extends wepy.page {
     userInfo: {},
     winHeight: 0
   }
-  async getUserInfo(phone,code) {
+  async getUserInfo() {
     let that = this;
     let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
     let openId = userSpecialInfo.openid;
@@ -76,8 +76,8 @@ export default class Messages extends wepy.page {
         openId: openId
       }
     });
-    if (json.data.code == 0) {
-      this.userInfo=json.data.user;
+    if (json.data.status === true) {
+      this.userInfo=json.data.result;
       console.log("===================")
       console.log(that.userInfo);
       that.$apply();

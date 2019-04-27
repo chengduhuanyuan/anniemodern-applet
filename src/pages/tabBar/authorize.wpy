@@ -1,14 +1,11 @@
 <template>
   <view class="authorize-contianer" >
-    <view wx:if="{{canIuse}}">
       <image class="authorize-icon" src="../../images/authorize.png"></image>
       <view class="auth-item">商城申请获取以下权限：</view>
       <view class="auth-item">获取你的公开信息（头像、昵称等）</view>
       <view class="btn-authorize">
         <button open-type="getUserInfo" type="primary" lang="zh_CN" bindgetuserinfo="onGotUserInfo">授权</button>
       </view>
-    </view>
-    <view class="auth-item" wx:else>请升级微信版本</view>
   </view>
 </template>
 <script>
@@ -25,7 +22,7 @@ export default class Authorize extends wepy.page {
     navigationBarTitleText: '授权登录',
   };
   data = {
-    canIuse: wx.canIUse('button.open-type.contact')
+
   };
   async onLoad() {
     // this.getAccessToken();

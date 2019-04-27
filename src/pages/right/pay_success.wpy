@@ -53,8 +53,8 @@ export default class paySuccess extends wepy.page {
         tradeNo: this.orderNo
       }
     });
-    if (json.data.code == 0) {
-      this.totalFee = json.data.order.totalFee;
+    if (json.data.status === true) {
+      this.totalFee = json.data.result.goodsPrices;
     } else {
       tip.error(json.data.msg)
     }

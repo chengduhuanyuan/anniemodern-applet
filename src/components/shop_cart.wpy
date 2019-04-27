@@ -200,9 +200,10 @@
         }
         let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
         let openId = userSpecialInfo.openid;
-        let orderId = util.generateOrderNo();
-        console.log("orderNO:  "+orderId);
-        const json = await api.saveByCart({
+        wepy.navigateTo({
+          url: "/pages/left/comfire_order?payList=" + JSON.stringify(payList) + "&totalPrice=" + price+"&openid="+openId
+        })
+       /* const json = await api.saveByCart({
           query: {
             openid: openId,
             // orderId: orderId,
@@ -216,7 +217,7 @@
           wepy.navigateTo({
             url: "/pages/left/comfire_order?payList=" + JSON.stringify(payList) + "&totalPrice=" + price+"&openid="+openId
           })
-        }
+        }*/
       },
       goIndex() {
         wepy.switchTab({

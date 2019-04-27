@@ -4,6 +4,7 @@
       <view class="header_content">
         <image class="avatarUrl" src="{{avatarUrl}}"></image>
         <view class="nickName cfff">{{nickName}}</view>
+        <view class="nickName cfff">【等级：会员】<text wx:if="{{false}}">【推荐人：阿里】 </text></view>
       </view>
     </view>
     <!--tab模块-->
@@ -66,13 +67,13 @@
         <!--</view>-->
         <!--<view class="arrow">&gt;</view>-->
       <!--</navigator>-->
-      <navigator class="item" url="/pages/right/commission">
+     <!-- <navigator class="item" url="/pages/right/commission">
         <view class="item_content">
           <image class="item_img" src="../../images/icon_my_08.png"></image>
           <view class="text">我的佣金</view>
         </view>
         <view class="arrow">&gt;</view>
-      </navigator>
+      </navigator>-->
       <navigator class="item" url="/pages/right/qr_code">
         <view class="item_content">
           <image class="item_img" src="../../images/icon_my_09.png"></image>
@@ -80,13 +81,13 @@
         </view>
         <view class="arrow">&gt;</view>
       </navigator>
-      <navigator class="item" url="/pages/right/my_card">
+      <!--<navigator class="item" url="/pages/right/my_card">
         <view class="item_content">
           <image class="item_img" src="../../images/icon_my_10.png"></image>
           <view class="text">我的名片</view>
         </view>
         <view class="arrow">&gt;</view>
-      </navigator>
+      </navigator>-->
     </view>
     <view class="info_block">
       <!--<navigator class="item" url="/pages/right/messages">-->
@@ -130,7 +131,7 @@ export default class Index extends wepy.page {
     nickName: "",
     bShowBind:false
   }
-  async getUserInfo(phone,code) {
+  async getUserInfo() {
     let that = this;
     let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
     let openId = userSpecialInfo.openid;
@@ -140,12 +141,12 @@ export default class Index extends wepy.page {
       }
     });
 
-    if (json.data.code == 0) {
-      if (json.data.user.mobile.length>0) {
+    if (json.data.code === true) {
+      /*if (json.data.user.mobile.length>0) {
         this.bShowBind=false;
       } else {
         this.bShowBind = true;
-      }
+      }*/
       that.$apply();
     } else {
       tip.error(json.data.msg)
@@ -160,8 +161,8 @@ export default class Index extends wepy.page {
     that.nickName = userInfo.nickName;
   }
   onShow(){
-    let that = this;
-    this.getUserInfo();
+    // let that = this;
+    // this.getUserInfo();
   }
   computed = {
 
@@ -193,7 +194,7 @@ export default class Index extends wepy.page {
 
 .header {
   background: #ff6a3c;
-  height: 260rpx;
+  height: 290rpx;
   width: 100%;
 }
 

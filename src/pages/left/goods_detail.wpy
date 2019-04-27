@@ -246,7 +246,7 @@ export default class goodsDetail extends wepy.page {
       this.special = option.special;
     }
     that.getGoodsDetail();
-    that.addUserBrowser();
+    // that.addUserBrowser();
     console.log("special===" + this.special);
   }
   onShow() {

@@ -51,6 +51,9 @@ const cartUpdateNum = (params) => wxRequest(params, apiMall + '/api/mall/goodsCa
 //直接购买商品
 const preOrder = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrder/commitData');
 
+//立即购买
+const purchaseNow = (params) => wxRequest(params, apiM + '/orderitem/purchaseNow');
+
 //支付前生成订单
 // const saveByCart = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrder/saveByCart');
 const saveByCart = (params) => wxRequest(params, apiM + '/order/creatOrder');
@@ -218,5 +221,6 @@ export default {
   getAccessToken,
   user2db,
   updateAddress,
-  getDefaultAddressByOpenid
+  getDefaultAddressByOpenid,
+  purchaseNow
 }

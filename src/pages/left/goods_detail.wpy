@@ -317,7 +317,7 @@ export default class goodsDetail extends wepy.page {
     that.$apply();
     this.$invoke('timer', 'initTimer', time);
   }
-  async addUserBrowser() {
+  /*async addUserBrowser() {
     let that = this;
     let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
     let openId = userSpecialInfo.openid;
@@ -327,25 +327,22 @@ export default class goodsDetail extends wepy.page {
         openId: openId
       }
     });
-  }
+  }*/
   computed = {}
   events = {}
   //加入购物车
   async doTakeCart() {
     let that = this;
     let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
-    let accessToken = wepy.getStorageSync(ACCESS_TOKEN) || {};
     let openId = userSpecialInfo.openid;
     const json = await api.addCart({
       query: {
         openId: openId,
         goodsId: that.goodsId,
-        goodsSkuId: this.detail.goodsSkuValIds,
-        purchaseType: this.purchasetype,
         num: this.orderNum
       }
     });
-    if (json.data.code === 0) {
+    if (json.data.status === true) {
       this.winHeight = "100%";
       this.animation.height(0).step();
       this.setData({
@@ -368,14 +365,11 @@ export default class goodsDetail extends wepy.page {
   async doTakeOrder() {
     let that = this;
     let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
-    // let accessToken = wepy.getStorageSync(ACCESS_TOKEN) || {};
     let openId = userSpecialInfo.openid;
-    const json = await api.addCart({
+    const json = await api.purchaseNow({
       query: {
         openId: openId,
         goodsId: that.goodsId,
-        // accessToken: accessToken,
-        // goodsSkuId: this.detail.goodsSkuValIds,
         num: this.orderNum
       }
     });
@@ -384,13 +378,13 @@ export default class goodsDetail extends wepy.page {
       this.animation.height(0).step();
       this.setData({
         animationData: this.animation.export()
-      })
+      });
       setTimeout(() => {
         this.hidden = true;
         this.$apply();
       }, 100);
       wepy.navigateTo({
-        url: "/pages/left/comfire_order?goodsId=" + that.goodsId + "&purchasetype=" + that.purchasetype
+        url: "/pages/left/comfire_order?payList=" + JSON.stringify(json.data.result) + "&totalPrice=" + this.detail.promotePrice+"&openid="+ openId
       })
     } else {
       if (json.data.msg) {
@@ -413,7 +407,7 @@ export default class goodsDetail extends wepy.page {
     }, 100)
   }
   //查看商品收藏状态
-  async goodsIsFavorite() {
+  /*async goodsIsFavorite() {
     let that = this;
     let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
     let openId = userSpecialInfo.openid;
@@ -481,7 +475,7 @@ export default class goodsDetail extends wepy.page {
       tip.error('取消收藏失败')
     }
     that.$apply();
-  }
+  }*/
   methods = {
     // issus : https://mp.weixin.qq.com/debug/wxadoc/dev/api/ui-navigate.html#wxrelaunchobject
     homePage() {
